@@ -1,4 +1,4 @@
-## Universal 42 C Project Makefile
+# Universal 42 C Project Makefile
 
 This repository contains a versatile Makefile designed for C projects in the 42 Common Core curriculum. It provides a standardized build system that can be used across different projects while maintaining the norm requirements.
 
@@ -52,6 +52,7 @@ The Makefile uses the following flags as required by the 42 norm:
 - -Werror: Treat warnings as errors
 
 ## Customization
+
 ### Adding More Source Directories
 
 If your project grows, you can organize source files into subdirectories within srcs/:
@@ -83,6 +84,7 @@ To link additional libraries, add them to the CFLAGS variable:
 4. Use meaningful names for source files and functions
 
 ## Compatibility
+
 This Makefile is tested and compatible with:
 - MacOS (42 lab computers)
 - Linux systems
