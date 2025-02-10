@@ -5,6 +5,7 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 	size_t	needlelen;
 	size_t	i;
 
+	needlelen = ft_strlen(needle);
 	if (!*needle)
 		return ((char *)haystack);
 	i = 0;

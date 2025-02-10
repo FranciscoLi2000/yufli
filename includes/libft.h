@@ -40,7 +40,7 @@ void	*ft_calloc(size_t num, size_t size);
 /* 将字符串转换为 int 类型数值 */
 int	ft_atoi(const char *nptr);
 /* 将内存块（字符串）的前n个字节清零 */
-void	ft_bzero(void *s, int n);
+void	ft_bzero(void *s, size_t n);
 /* 将 src 字符串复制到 dst 中，最多复制 dstsize-1 个字符，并在末尾添加 '\0'。返回值为 src 的长度（不包括终止的 '\0'）。 */
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 /* 将 src 字符串追加到 dst 字符串的末尾，最多追加 dstsize - strlen(dst) - 1 个字符，并在末尾添加 '\0'。返回值为 dst 原始字符串长度加上 src 的长度，即理论上最终字符串的长度。 */

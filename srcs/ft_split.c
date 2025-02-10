@@ -1,91 +1,66 @@
 #include "libft.h"
 #include <stdlib.h>
-#include <stddef.h>
-/* 辅助函数：检查字符是否是分隔符 */
-static int	is_separator(char c, char sep)
+/* 辅助函数1：跳过分隔符 */
+static const char	*skip_delimiters(const char *s, char c)
 {
-	return (c == sep);
+	while (*s == c && *s)
+		s++;
+	return (s);
 }
-/* 计算子字符串的数量 */
-static size_t	count_substrings(char const *s, char sep)
+/* 辅助函数2：统计单词数 */
+static size_t	count_words(const char *s, char c)
 {
 	size_t	count;
 
 	count = 0;
-	while (*s != '\0')
+	while (*s)
 	{
-		/* 跳过分隔符 */
-		while (*s != '\0' && is_separator(*s, sep))
-			s++;
-		/* 如果不是结束符，说明是一个新的子字符串 */
+		s = skip_delimiters(s, c);
 		if (*s)
-		{
 			count++;
-			/* 跳过当前子字符串的字符 */
-			while (*s && !is_separator(*s, sep))
-				s++;
-		}
+		s = ft_strchr(s, c);
 	}
 	return (count);
 }
-/* 释放 ft_split 函数分配的内存 */
-void	free_split(char **result)
+/* 辅助函数3：提取单词 */
+static char	*extract_word(const char *s, char c)
 {
-	size_t	i;
+	const char	*end;
 
-	if (!result)
-		return ;
-	/* 逐个释放每个子字符串 */
-	i = 0;
-	while (result[i])
-	{
-		free(result[i]);
-		i++;
-	}
-	free(result);/* 最后释放指向字符串数组的指针 */
+	end = ft_strchr(s, c);
+	if (!end)
+		end = s + ft_strlen(s);
+	return (ft_substr(s, 0, end - s));
 }
-/* 将字符串 s 按照字符 sep 分割，返回一个字符串数组 */
-char	**ft_split(char const *s, char c)
+/* 主函数 */
+char	**ft_split(const char *s, char c)
 {
-	size_t	num_substrings;
+	size_t	num_words;
 	size_t	i;
-	size_t	start;
-	size_t	len;
 	char	**result;
 
 	if (!s)
 		return (NULL);
-	/* 计算子字符串的数量 */
-	num_substrings = count_substrings(s, c);
-	/* 分配存放子字符串的数组 */
-	result = malloc((num_substrings + 1) * sizeof(char *));
+	num_words = count_words(s, c);
+	result = ft_calloc(num_words + 1, sizeof(char *));
 	if (!result)
 		return (NULL);
 	i = 0;
-	start = 0;
 	while (*s)
 	{
-		/* 跳过分隔符 */
-		while (*s && is_separator(*s, c))
-			s++;
-		/* 如果不是结束符，说明是一个新的子字符串 */
-		if (*s)
+		s = skip_delimiters(s, c);
+		if (!*s)
+			break ;
+		result[i] = extract_word(s, c);
+		if (!result[i])
 		{
-			start = s - s;  /* 当前子字符串的开始位置 */
-			/* 跳过子字符串，找到下一个分隔符或字符串结尾 */
-			len = 0;
-			while (s[len] && !is_separator(s[len], c))
-				len++;
-			result[i] = ft_substr(s, 0, len);/* 使用 ft_substr 提取子字符串 */
-			if (!result[i])
-			{
-				free_split(result);
-				return (NULL);
-			}
-			i++;
-			s += len;
+			while (i > 0)
+				free(result[--i]);
+			free(result);
+			return (NULL);
 		}
+		s += ft_strlen(result[i]);
+		i++;
 	}
-	result[i] = NULL;
 	return (result);
 }
