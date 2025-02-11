@@ -1,5 +1,4 @@
 #include "get_next_line.h"
-#include "libft.h"
 char	*read_and_store(int fd, char *stash)
 {
 	char	*buffer;

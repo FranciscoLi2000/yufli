@@ -2,8 +2,8 @@ NAME = get_next_line
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
-SRC = get_next_line.c ft_strjoin.c ft_strchr.c ft_substr.c ft_strdup.c
-BONUS_SRC = get_next_line_bonus.c ft_strjoin.c ft_strchr.c ft_substr.c ft_strdup.c
+SRC = get_next_line.c get_next_line_utils.c
+BONUS_SRC = get_next_line_bonus.c get_next_line_utils.c
 OBJ = $(SRC:.c=.o)
 BONUS_OBJ = $(BONUS_SRC:.c=.o)
 
