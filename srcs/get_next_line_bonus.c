@@ -1,8 +1,5 @@
 #include "get_next_line.h"
-#include "libft.h"
-#include <unistd.h>
-#include <stdlib.h>
-static char	*read_and_store(int fd, char *stash)
+char	*read_and_store(int fd, char *stash)
 {
 	char	*buffer;
 	ssize_t	bytes_read;
@@ -24,7 +21,7 @@ static char	*read_and_store(int fd, char *stash)
 		return (NULL);
 	return (stash);
 }
-static char	*extract_line(char *stash)
+char	*extract_line(char *stash)
 {
 	char	*line;
 	int	i;
@@ -37,7 +34,7 @@ static char	*extract_line(char *stash)
 	line = ft_substr(stash, 0, i + 1);
 	return (line);
 }
-static char	*save_remaining(char *stash)
+char	*save_remaining(char *stash)
 {
 	char	*remaining;
 	int	i;
@@ -56,15 +53,15 @@ static char	*save_remaining(char *stash)
 }
 char	*get_next_line(int fd)
 {
-	static char	*stash;
-	char		*line;
+	static char	*stash[FD_MAX];
+	char	*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd >= FD_MAX)
 		return (NULL);
-	stash = read_and_store(fd, stash);
-	if (!stash)
+	stash[fd] = read_and_store(fd, stash[fd]);
+	if (!stash[fd])
 		return (NULL);
-	line = extract_line(stash);
-	stash = save_remaining(stash);
+	line = extract_line(stash[fd]);
+	stash[fd] = save_remaining(stash[fd]);
 	return (line);
 }
