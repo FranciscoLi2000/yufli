@@ -1,7 +1,4 @@
 #include "get_next_line.h"
-#include "libft.h"
-#include <unistd.h>
-#include <stdlib.h>
 static char	*read_and_store(int fd, char *stash)
 {
 	char	*buffer;
