@@ -1,5 +1,5 @@
 #ifndef LIBFT_H
-#define LIBFT_H
+# define LIBFT_H
 
 /* 检查字符类型的函数，参数通常为 int 类型的字符值（通常用 unsigned char 转换后再传入），返回值非零表示真，0 表示假 */
 int	ft_isalnum(int c);   /* 判断是否为字母或数字 */
@@ -74,5 +74,15 @@ void	ft_lstdelone(t_list *lst, void (*del)(void*));
 void	ft_lstclear(t_list **lst, void (*del)(void*));
 void	ft_lstiter(t_list *lst, void (*f)(void*));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void*), void (*del)(void*));
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1024
+# endif
+
+# ifndef FD_MAX
+# define FD_MAX 1024
+# endif
+
+char	*get_next_line(int fd);
 
 #endif
