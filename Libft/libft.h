@@ -79,10 +79,13 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void*), void (*del)(void*));
 #  define BUFFER_SIZE 1024
 # endif
 
-# ifndef FD_MAX
-# define FD_MAX 1024
-# endif
-
 char	*get_next_line(int fd);
+
+int	ft_printf(const char *format, ...);
+void	ft_itoa_printf(char *buf, int *n, int size, long num);
+void	ft_utoa_printf(char *buf, int *n, int size, unsigned long num);
+void	ft_htoa_printf(char *buf, int *n, int size, unsigned long num, int uppercase);
+void	ft_htoa_pre(char *buf, int *n, int size, unsigned long num, int uppercase);
+void	ft_stoa(char *buf, int *n, int size, char *str);
 
 #endif
