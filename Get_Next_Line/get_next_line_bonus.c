@@ -1,4 +1,4 @@
-#include "get_next_line.h"
+
 char	*read_and_store(int fd, char *stash)
 {
 	char	*buffer;
