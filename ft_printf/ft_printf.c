@@ -34,9 +34,9 @@ static int	ft_vsnprintf(char *buf, int size, const char *format, va_list *ap)
 		if (*format == 'd' || *format == 'i')
 		{
 			if (is_long)
-				num = va_arg(ap, long);
+				num = va_arg(*ap, long);
 			else
-				num = va_arg(ap, int);
+				num = va_arg(*ap, int);
 			if (num < 0)
 			{
 				buf[n++] = '-';
@@ -53,17 +53,17 @@ static int	ft_vsnprintf(char *buf, int size, const char *format, va_list *ap)
 		else if (*format == 'u')
 		{
 			if (is_long)  /* 假设 is_long 表示是否需要 long 类型 */
-				ft_utoa(buf, &n, size, va_arg(ap, unsigned long));
+				ft_utoa(buf, &n, size, va_arg(*ap, unsigned long));
 			else
-				ft_utoa(buf, &n, size, va_arg(ap, unsigned int));
+				ft_utoa(buf, &n, size, va_arg(*ap, unsigned int));
 		}
 		else if (*format == 'x' || *format == 'X')
 		{
 			uppercase = (*format == 'X');
 			if (is_long)
-				nb = va_arg(ap, unsigned long);
+				nb = va_arg(*ap, unsigned long);
 			else
-				nb = va_arg(ap, unsigned int);
+				nb = va_arg(*ap, unsigned int);
 			if (prefix)
 				ft_htoa_pre(buf, &n, size, nb, uppercase);
 			else
@@ -71,14 +71,14 @@ static int	ft_vsnprintf(char *buf, int size, const char *format, va_list *ap)
 		}
 		else if (*format == 'p')
 		{
-			ptr = va_arg(ap, void*);
+			ptr = va_arg(*ap, void*);
 			addr = (unsigned long)ptr;  /* 将指针转为 unsigned long */
 			ft_stoa(buf, &n, size, "0x");
 			ft_htoa(buf, &n, size, addr, 0);  /* 强制小写十六进制 */
 		}
 		else if (*format == 's')
 		{
-			str = va_arg(ap, char*);
+			str = va_arg(*ap, char*);
 			if (!str)
 				ft_stoa(buf, &n, size, "(null)");  /* 处理 NULL 指针 */
 			else
