@@ -1,19 +1,25 @@
 NAME = get_next_line
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Werror -Wextra
+AR = ar rcs
+RM = rm -f
 
-SRC = get_next_line.c get_next_line_utils.c
-BONUS_SRC = get_next_line_bonus.c get_next_line_utils.c
+SRC = $(wildcard *.c)
 OBJ = $(SRC:.c=.o)
-BONUS_OBJ = $(BONUS_SRC:.c=.o)
 
 all: $(NAME)
 $(NAME): $(OBJ)
-	ar rcs $(NAME) $(OBJ)
-bonus: $(BONUS_OBJ)
-	ar rcs $(NAME) $(BONUS_OBJ)
+	@$(AR) $(NAME) $(OBJ)
+	@echo "$(NAME) compiled successfully"
+
 clean:
-	rm -f $(OBJ) $(BONUS_OBJ)
+	@$(RM) $(OBJ)
+	@echo "Object files removed"
+
 fclean: clean
-	rm -f $(NAME)
+	@$(RM) $(NAME)
+	@echo "$(NAME) removed"
+
 re: fclean all
+
+.PHONY: all clean fclean re
