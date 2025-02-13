@@ -20,11 +20,15 @@ int	main(int argc, char **argv)
 		perror("Error opening file");
 		return (1);
 	}
-	while ((line = get_next_line(fd)) != NULL)
+	line = get_next_line(fd);
+	if (!line)
 	{
-		printf("%s", line);
-		free(line);
+		printf("Error: get_next_line returned NULL\n");
+		close(fd);
+		return (1);
 	}
+	while (line != NULL)
+		printf("%s", line);
 	close(fd);
 	return (0);
 }
