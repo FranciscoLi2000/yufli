@@ -1,6 +1,10 @@
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1024
+# endif
+
 typedef struct
 {
 	int	left_align;    /* '-' */

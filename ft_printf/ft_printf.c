@@ -1,6 +1,7 @@
 #include "ft_printf.h"
 #include <stdarg.h>
 #include <unistd.h>
+#include <stdlib.h>
 static int	ft_vsnprintf(char *buf, int size, const char *format, va_list *ap)
 {
 	char	*str;
@@ -94,13 +95,17 @@ static int	ft_vsnprintf(char *buf, int size, const char *format, va_list *ap)
 int	ft_printf(const char *format, ...)
 {
 	va_list	ap;
-	char	buf[1024];
+	char	*buf;
 	int	ret;
 
+	buf = malloc(BUFFER_SIZE);
+	if (!buf)
+		return (-1);
 	va_start(ap, format);
-	ret = ft_vsnprintf(buf, sizeof(buf) - 1, format, &ap);
+	ret = ft_vsnprintf(buf, BUFFER_SIZE, format, &ap);
 	va_end(ap);
 	if (ret > 0)
 		ret = write(1, buf, ret);
+	free(buf);
 	return (ret);
 }
